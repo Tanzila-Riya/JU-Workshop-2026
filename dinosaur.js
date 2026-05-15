@@ -2,6 +2,7 @@ let dino = document.getElementById("dino");
 let tree = document.getElementById("tree");
 let game = document.getElementById("game");
 let restartBtn = document.getElementById("restartBtn");
+let lifebar= document.getElementById("lifebar");
 
 let isJumping = false;
 let gravity = 0.9;
@@ -18,6 +19,7 @@ let treePosition = 600;
 let treeIntervalId = null;
 
 restartBtn.style.display = "none";
+
 
 // Handle jump
 document.addEventListener("keydown", function (event) {
@@ -56,17 +58,22 @@ function moveTree() {
     if (gameOver) return;
 
     treePosition -= runSpeed;
-
+       if(score%100==0)runspeed+=1;
     // When the tree is out of the screen
-    // reset the tree position to the right again
+    // reset the tree position to the right agai
     if (treePosition < -40) {
       treePosition = 600;
 
       // Set random tree height in between 50px-70px after 200 score
-      if (score > 200) {
+      if (score > 20) {
         const randomHeight = Math.floor(Math.random() * 20) + 50;
         tree.style.height = randomHeight + "px";
+
         tree.style.width = 48 * (randomHeight / 100) + "px";
+        // solved second problem"
+          const randdist=Math.floor(Math.random()+450)+25;
+          randdist+="px";
+       tree.style.left= treeposition+randdist;
       }
       else {
         tree.style.height = "50px";
@@ -119,11 +126,21 @@ function scrollGround() {
     if (gameOver) return;
 
     groundOffset -= runSpeed;
+   document.addEventListener("keydown", function (event) {
+  if ((event.code === "ArrowDown" ) && !gameOver) {
+    // dino.classList.add("duck1");
+    dino.classList.add("duck2");
+  }
+});
+    
     game.style.backgroundPosition = groundOffset + "px bottom";
   }, 20);
 }
 
 scrollGround();
+// document.addEventListener("keydown", function(event)){
+      
+//     }
 
 // Collision detection
 function checkCollision() {
@@ -206,7 +223,9 @@ function startScore() {
     score += 1;
     updateScoreDisplay();
     // sloveed problem one
-    if(score%100==0)score+=1;
+    // if(score%100==0)score+=1;
+    
+
   }, 100); // 0.1 seconds = 100ms
 }
 
@@ -234,12 +253,12 @@ function updateScoreDisplay() {
 }
 
 function restartGame() {
-  // Remove gameOverText
+  location.reload();
   const gameOverText = document.getElementById("gameOverMessage");
   if (gameOverText) {
     gameOverText.remove();
   }
-
+  
   // Show 'Restart button pressed' text if it is not there
   const previousRestartText = document.getElementById("restartMessage");
   if (!previousRestartText) {
@@ -252,8 +271,23 @@ function restartGame() {
       fontSize: "20px",
       transform: "translate(-50%, -50%)",
     });
+
+    // const dinoLeft = dinoRect.left - gameRect.left;
+    // const dinoRight = dinoRect.right - gameRect.left;
+    // const dinoTop = dinoRect.top - gameRect.top;
+    // const dinoBottom = dinoRect.bottom - gameRect.top;
+
+    // const treeLeft = treeRect.left - gameRect.left;
+    // const treeRight = treeRect.right - gameRect.left;
+    // const treeTop = treeRect.top - gameRect.top;
+    // const treeBottom = treeRect.bottom - gameRect.top;
+    if(gameOverText)
+    treeposition=600;
+  startRunAnimation()
   }
 }
+
+
 
 // Add restart button event listener
 restartBtn.addEventListener("click", restartGame);

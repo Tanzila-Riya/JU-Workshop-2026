@@ -95,3 +95,14 @@ body {
     font-size: 12px;
     z-index: 1001;
   }
+#lifebar {
+  position: absolute static center;
+  margin-left:150px;
+  height: 25px;
+  width: 400px;
+  align-content: center;
+  background-color:solid black;
+  z-index: 120;
+}
+#lifebar.life1{background-image: url("images/blank_life.png")}
+#lifebar.life2{background-image: url("images/full_life.png")}
