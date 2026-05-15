@@ -205,6 +205,8 @@ function startScore() {
 
     score += 1;
     updateScoreDisplay();
+    // sloveed problem one
+    if(score%100==0)score+=1;
   }, 100); // 0.1 seconds = 100ms
 }
 
